@@ -24,7 +24,7 @@ public class Robot extends IterativeRobot {
 	Joystick DriveStick;			// EntropyJoystick used for robot driving
 	Joystick GameStick;			// EntropyJoystick for all other functions		
 	EntropyDrive RobotDrive;
-	
+	IODefinitions test;
 	
 	float m_turnSpeed;
     int state;
@@ -43,7 +43,7 @@ public class Robot extends IterativeRobot {
 		// instantiate the command used for the autonomous period
 		this.DriveStick = new Joystick(IODefinitions.USB_PORT_1);
 		this.GameStick = new Joystick(IODefinitions.USB_PORT_2);	
-	
+	    this.RobotDrive = new EntropyDrive();
     }
 									
 	public void disabledPeriodic() {
@@ -67,7 +67,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-    //  RobotDrive.Initialize();
+      RobotDrive.Initialize();
     }
 
     /**
@@ -84,7 +84,8 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         
-      //  RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(4));
+       // RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(4));
+        RobotDrive.driveRobot(0,0);
     }
     
     /**

@@ -145,7 +145,9 @@ public class EntropyDrive {
 
 		MoveValue = addDeadZone(MoveValue);
 		//MoveValue = moveValueDampen(MoveValue);
-
+		
+		
+		// TODO:Drive table is causing issues 2/4/2015
 		LeftMotors = left_scale(RotateValue, MoveValue, DriveMode.Rotate);  
 		RightMotors = right_scale(RotateValue, MoveValue, DriveMode.Rotate);
 		
@@ -272,6 +274,16 @@ public class EntropyDrive {
 		return temp_drive;
 	}
 
+    public static void main(String args[]) {
+	     System.out.println("Constructor");
+	     EntropyDrive ed = new EntropyDrive();
+	     double ret = ed.left_scale(0, 0, DriveMode.Radius);
+	     System.out.println("left value= " + ret);
+	     ret = ed.right_scale(0, 0, DriveMode.Radius);
+	     System.out.println("right value= " + ret);
+	
+	
+}
 
 	// Code is replicated from RobotDrive class
 	double Limit(double num)
