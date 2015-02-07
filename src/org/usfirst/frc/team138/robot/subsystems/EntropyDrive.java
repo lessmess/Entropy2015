@@ -7,8 +7,8 @@ public class EntropyDrive {
 
 	
 	
-	public static int x_index;
-	public static int y_index;
+	int x_index;
+	int y_index;
 	
 	double DEAD_ZONE_MAX = .15;
 
@@ -24,7 +24,17 @@ public class EntropyDrive {
 	RobotDrive wpiDrive;
 
 	double dampValue=0.05;
+	public EntropyDrive(){
+		MotorDriveLeft1 = new CANJaguar(IODefinitions.MOTOR_DRIVE_LEFT_1);
+		MotorDriveLeft2 = new CANJaguar(IODefinitions.MOTOR_DRIVE_LEFT_2);
+		MotorDriveRight1 = new CANJaguar(IODefinitions.MOTOR_DRIVE_RIGHT_1);
+		MotorDriveRight2 = new CANJaguar(IODefinitions.MOTOR_DRIVE_RIGHT_2);
 
+		wpiDrive = new RobotDrive( 	MotorDriveLeft1,
+				MotorDriveLeft2,
+				MotorDriveRight1,
+				MotorDriveRight2 );
+	}
 	public enum DriveMode 
 	{
 		Rotate (0), 
@@ -39,99 +49,12 @@ public class EntropyDrive {
 
 	public boolean Initialize () 
 	{ 
-		MotorDriveLeft1 = new CANJaguar(IODefinitions.MOTOR_DRIVE_LEFT_1);
-		MotorDriveLeft2 = new CANJaguar(IODefinitions.MOTOR_DRIVE_LEFT_2);
-		MotorDriveRight1 = new CANJaguar(IODefinitions.MOTOR_DRIVE_RIGHT_1);
-		MotorDriveRight2 = new CANJaguar(IODefinitions.MOTOR_DRIVE_RIGHT_2);
-
-		wpiDrive = new RobotDrive( 	MotorDriveLeft1,
-				MotorDriveLeft2,
-				MotorDriveRight1,
-				MotorDriveRight2 );
-		
-		/**typedef struct
-		{
-			double value;
-			string name;
-		}valStruct;
-		
-		valStruct valList[30];
-		
-		string line;
-	    ifstream file ("EntropyDriveINI.txt",  std::ifstream::in);
-	    int index = 0;
-	    while ( getline (file,line) )
-	       {
-	    		
-	    		char *ptr = strtok((char*)(line.data()), (" ="));
-	    		while (ptr != NULL && index <= 30)
-	    		  {
-	    		    valList[index].name.assign(ptr);
-	    		    ptr = strtok (NULL, " =");
-	    		    valList[index].value = atof(ptr);
-	    		    index++;
-	    		  }
-	       }
-	    file.close();
-	    
-	    for(int x = 0;x<30;x++)
-	    {
-	    	if (valList[x].name.compare("DEAD_ZONE_MAX")== 0)
-	    	{	
-	    		DEAD_ZONE_MAX = valList[x].value;
-	    		break;
-	    	}
-	    }
-	    for(int x = 0;x<30;x++)
-		{
-	        if (valList[x].name.compare("CompMoveValuePlus")== 0)
-	        {
-	        	CompMoveValuePlus = valList[x].value;
-	        	break;
-	        }
-	    }
-	    for(int x = 0;x<30;x++)
-	    {
-	       	if (valList[x].name.compare("CompMoveValueMinus")== 0)
-	       	{
-	       		CompMoveValueMinus = valList[x].value;
-	       		break;
-	       	}
-	    }
-		for(int x = 0;x<30;x++)
-	    {
-	       	if (valList[x].name.compare("CompRotateValuePlus")== 0)
-	       	{
-	       		CompRotateValuePlus = valList[x].value;
-	       		break;
-	       	}
-	    }
-		for(int x = 0;x<30;x++)
-	    {
-	       	if (valList[x].name.compare("CompRotateValueMinus")== 0)
-	       	{
-	       		CompRotateValueMinus = valList[x].value;
-	       		break;
-	       	}
-	    }
-		for(int x = 0;x<30;x++)
-	    {
-	       	if (valList[x].name.compare("dampValue")== 0)
-	       	{
-	       		dampValue = valList[x].value;
-	       		break;
-	       	}
-	    }*/
 		return true;
 	}
 			
 		
 	void cleanup ()
 	{
-		MotorDriveLeft1.disableControl();
-		MotorDriveLeft2.disableControl();
-		MotorDriveRight1.disableControl();
-		MotorDriveRight2.disableControl();
 	}
 		
 			
@@ -238,8 +161,8 @@ public class EntropyDrive {
 	return: left scale_value */
 	double left_scale(double rotateValue, double moveValue, DriveMode mode)
 	{
-		Integer x_index = new Integer(0);
-		Integer y_index = new Integer(0);
+		 x_index = 0;
+		 y_index = 0;
 		double temp_drive = 0;
 		int x_idx = 0;
 		double absRotate = rotateValue;
@@ -249,7 +172,7 @@ public class EntropyDrive {
 			absRotate = Math.abs(rotateValue);
 		}	
 
-		get_index(x_index, y_index, moveValue, absRotate, mode);
+		get_index(moveValue, absRotate, mode);
 
 		if(mode == DriveMode.Rotate)
 		{
@@ -308,8 +231,8 @@ public class EntropyDrive {
 	/* return: left scale_value */
 	double right_scale(double rotateValue, double moveValue, DriveMode mode)
 	{
-		Integer x_index = new Integer(0);
-		Integer y_index = new Integer(0);
+		x_index = 0;
+		y_index = 0;
 		double temp_drive = 0;
 		int x_idx = 0;
 		double absRotate = rotateValue;
@@ -319,7 +242,7 @@ public class EntropyDrive {
 			absRotate = Math.abs(rotateValue);
 		}
 
-		get_index(x_index, y_index, moveValue, absRotate, mode);
+		get_index(moveValue, absRotate, mode);
 
 		temp_drive = EntropyDriveTable.left_fast_njxy[y_index][32-x_index];
 
@@ -370,7 +293,7 @@ public class EntropyDrive {
 	}
 
 
-	void get_index(Integer x_index, Integer y_index, double moveValue, double rotateValue, DriveMode mode)
+	void get_index(double moveValue, double rotateValue, DriveMode mode)
 	{
 		double rotate = 0;
 		double move = 0;

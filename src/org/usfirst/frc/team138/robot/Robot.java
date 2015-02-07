@@ -8,11 +8,15 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 //import org.usfirst.frc.team138.robot.commands.ExampleCommand;
 import org.usfirst.frc.team138.robot.subsystems.EntropyDrive;
 import org.usfirst.frc.team138.robot.subsystems.ExampleSubsystem;
 
-public class Robot extends IterativeRobot {
+public class Robot extends IterativeRobot
+{
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	
@@ -25,7 +29,7 @@ public class Robot extends IterativeRobot {
 	Joystick GameStick;			// EntropyJoystick for all other functions		
 	EntropyDrive RobotDrive;
 	IODefinitions test;
-	
+	DriverStation station;
 	float m_turnSpeed;
     int state;
     boolean pressed_flag;
@@ -38,7 +42,8 @@ public class Robot extends IterativeRobot {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-    public void robotInit() {
+    public void robotInit() 
+    {
 		oi = new OI();
 		// instantiate the command used for the autonomous period
 		this.DriveStick = new Joystick(IODefinitions.USB_PORT_1);
@@ -50,7 +55,8 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 	}
 
-    public void autonomousInit() {
+    public void autonomousInit() 
+    {
        //  schedule the autonomous command (example)
         
     }
@@ -58,11 +64,13 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during autonomous
      */
-    public void autonomousPeriodic() {
+    public void autonomousPeriodic() 
+    {
         Scheduler.getInstance().run();
     }
 
-    public void teleopInit() {
+    public void teleopInit() 
+    {
 		// This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
@@ -74,24 +82,28 @@ public class Robot extends IterativeRobot {
      * This function is called when the disabled button is hit.
      * You can use it to reset subsystems before shutting down.
      */
-    public void disabledInit(){
+    public void disabledInit()
+    {
 
     }
 
     /**
      * This function is called periodically during operator control
      */
-    public void teleopPeriodic() {
+    public void teleopPeriodic() 
+    {
         Scheduler.getInstance().run();
+//        station.println(DriverStation.Line.kUser1, 1, DriveStick.getY());
+        RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(3));
         
-       // RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(4));
-        RobotDrive.driveRobot(0,0);
+        //RobotDrive.driveRobot(0,0);
     }
     
     /**
      * This function is called periodically during test mode
      */
-    public void testPeriodic() {
+    public void testPeriodic() 
+    {
         LiveWindow.run();
     }
 }
