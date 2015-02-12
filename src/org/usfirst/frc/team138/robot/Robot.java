@@ -94,7 +94,9 @@ public class Robot extends IterativeRobot
     {
         Scheduler.getInstance().run();
 //        station.println(DriverStation.Line.kUser1, 1, DriveStick.getY());
-        RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(3));
+        SmartDashboard.putNumber("throttle", DriveStick.getY());
+        SmartDashboard.putNumber("rotate", DriveStick.getRawAxis(0));
+        RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(0));
         
         //RobotDrive.driveRobot(0,0);
     }
