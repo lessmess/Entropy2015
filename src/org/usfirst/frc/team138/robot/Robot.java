@@ -1,19 +1,26 @@
 
 package org.usfirst.frc.team138.robot;
 
+import java.util.Date;
+
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+
 //import org.usfirst.frc.team138.robot.commands.ExampleCommand;
-import org.usfirst.frc.team138.robot.subsystems.EntropyDrive;
-import org.usfirst.frc.team138.robot.subsystems.ExampleSubsystem;
+
+
+
+
+
+import org.usfirst.frc.team138.robot.subsystems.*;
+
 
 public class Robot extends IterativeRobot
 {
@@ -29,6 +36,24 @@ public class Robot extends IterativeRobot
 	Joystick GameStick;			// EntropyJoystick for all other functions		
 	EntropyDrive RobotDrive;
 	IODefinitions test;
+	
+	AnalogInput RangeFinder;
+	
+	public static Claw claw;
+    public static Wrist wrist;
+    public static Mantis mantis;
+    public static Lift lift;
+    public static ArmExtension armExtension;
+	public static Commands commands;
+	
+    boolean delay;
+    long epoch;
+    long currentTime;
+    
+    boolean lift1;
+    boolean lift2;
+    boolean lift3;
+    
 	DriverStation station;
 	float m_turnSpeed;
     int state;
@@ -44,11 +69,24 @@ public class Robot extends IterativeRobot
      */
     public void robotInit() 
     {
+    	RobotMap.init();
 		oi = new OI();
+		claw = new Claw();
+        wrist = new Wrist();
+        mantis = new Mantis();
+        lift = new Lift();
+        armExtension = new ArmExtension();
+        commands = new Commands();
+        
+        this.RangeFinder = new AnalogInput(IODefinitions.RANGE_FINDER);
 		// instantiate the command used for the autonomous period
 		this.DriveStick = new Joystick(IODefinitions.USB_PORT_1);
 		this.GameStick = new Joystick(IODefinitions.USB_PORT_2);	
 	    this.RobotDrive = new EntropyDrive();
+
+	    lift1 = false;
+	    lift2 = false;
+	    lift3 = false;	    
     }
 									
 	public void disabledPeriodic() {
@@ -76,6 +114,16 @@ public class Robot extends IterativeRobot
         // continue until interrupted by another command, remove
         // this line or comment it out.
       RobotDrive.Initialize();
+      claw = new Claw();
+      wrist = new Wrist();
+      armExtension = new ArmExtension();
+      lift = new Lift();
+      commands = new Commands();
+      delay = false;
+      
+      lift1 = false;
+      lift2 = false;
+      lift3 = false;
     }
 
     /**
@@ -93,11 +141,149 @@ public class Robot extends IterativeRobot
     public void teleopPeriodic() 
     {
         Scheduler.getInstance().run();
-//        station.println(DriverStation.Line.kUser1, 1, DriveStick.getY());
-        SmartDashboard.putNumber("throttle", DriveStick.getY());
-        SmartDashboard.putNumber("rotate", DriveStick.getRawAxis(0));
-        RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(0));
+        if(delay == false)
+        {
+        	//        station.println(DriverStation.Line.kUser1, 1, DriveStick.getY());
+        	SmartDashboard.putNumber("throttle", DriveStick.getY());
+        	SmartDashboard.putNumber("rotate", DriveStick.getRawAxis(0));
+        	//gamepad
+        	//RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(4));
+        	//rc controller
+        	RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(0));
+        	SmartDashboard.putNumber("range", RangeFinder.getVoltage());
+        	if(GameStick.getRawButton(2))
+        	{
+        		claw.open();
+        	}
+        	if(GameStick.getRawButton(1))
+        	{
+        		claw.close();
+        	}
+        	if(GameStick.getRawButton(4))
+        	{
+        		wrist.up();
+        	}
+        	if(GameStick.getRawButton(3))
+        	{
+        		wrist.down();
+        	}
+        	if(GameStick.getRawButton(5))
+        	{
+        		armExtension.out();
+        	}
+        	
+        	else if(GameStick.getRawButton(7))
+        	{
+        		armExtension.in();
+        	}
+        	else
+        	{
+        		armExtension.stop();
+        	}
+        		
+        	if(GameStick.getRawButton(6))
+        	{
+        		lift.up();
+        	}
+        	
+        	else if(GameStick.getRawButton(8))
+        	{
+        		lift.down();
+        	}
+        	
+        	else
+        	{
+        		lift.stop();
+        	}
         
+        	/*if(GameStick.getRawButton(1) || lift1 == true)
+        	{
+        		lift1 = commands.liftPositionAquire(lift, claw, armExtension, wrist, RangeFinder);
+        	}
+        	
+        	if(GameStick.getRawButton(2) || lift2 == true)
+        	{
+        		lift2 = commands.liftPositionTransport(lift, claw, armExtension, wrist, RangeFinder);
+        	}
+        	
+        	if(GameStick.getRawButton(4) || lift3 == true)
+        	{
+        		lift3 = commands.liftPositionMax(lift, claw, armExtension, wrist, RangeFinder);
+        	}
+        	
+        	if(GameStick.getRawButton(9))
+        	{
+        		commands.armExtensionIn(lift, claw, armExtension, wrist, RangeFinder);
+        	}  
+        	
+        	if(GameStick.getRawButton(10))
+        	{
+        		commands.armExtensionOut(lift, claw, armExtension, wrist, RangeFinder);
+        	}
+        	
+        	if(GameStick.getRawButton(5))
+        	{
+        		commands.acquireContainer(lift, claw, armExtension, wrist, RangeFinder);
+        	}
+        	
+        	if(GameStick.getRawButton(6))
+        	{
+        		commands.acquireTote(lift, claw, armExtension, wrist, RangeFinder);
+        	}
+        	
+        	if(GameStick.getRawButton(7))
+        	{
+        		commands.placeContainer(lift, claw, armExtension, wrist, RangeFinder, 0);
+        		delay = true;
+        		Date date = new Date();
+        		epoch = date.getTime();
+        	}
+        	
+        	if(GameStick.getRawButton(8))
+        	{
+        		commands.placeTote(lift, claw, armExtension, wrist, RangeFinder);
+        	}
+        	
+        	SmartDashboard.putNumber("raw axis 0", GameStick.getRawAxis(0));
+        	if(GameStick.getRawAxis(1) > .15)
+        	{
+        		armExtension.out();
+        	}
+        	
+        	if(GameStick.getRawAxis(1) < -.15)
+        	{
+        		armExtension.in();
+        	}
+        	
+        	if(GameStick.getRawAxis(2) > .15)
+        	{
+        		lift.up();
+        	}
+        	
+        	if(GameStick.getRawAxis(2) < -.15)
+        	{
+        		lift.down();
+        	}
+        	
+        	if(GameStick.getRawAxis(2) >= -.15 && GameStick.getRawAxis(2) <= .15)
+        	{
+        //		lift.stop();
+        	}
+        }
+        else
+        {
+        	Date date = new Date();
+    		currentTime = date.getTime();
+        	RobotDrive.driveRobot(0,0);
+        	if(currentTime - epoch > 1000)
+        	{
+        		delay = false;
+        		commands.placeContainer(lift, claw, armExtension, wrist, RangeFinder, 1);
+        	} */    	
+        }
+    	
+    	
+    	
         //RobotDrive.driveRobot(0,0);
     }
     

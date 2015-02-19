@@ -14,6 +14,7 @@ public class EntropyDrive {
 	//double DEAD_ZONE_MAX = .15;
 	//this is for the rc controller
 	double DEAD_ZONE_MAX = 0;
+	
 
 	double CompMoveValuePlus=0.99;
 	double CompMoveValueMinus=0.60;

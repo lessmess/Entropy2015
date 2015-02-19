@@ -138,4 +138,6 @@ public class IODefinitions {
 			}
 	    	
 	    };
+	    
+	    public static int RANGE_FINDER = 0;
 }
