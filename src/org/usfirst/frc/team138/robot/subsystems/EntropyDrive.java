@@ -13,7 +13,7 @@ public class EntropyDrive {
 	//this is for gamepad driving
 	//double DEAD_ZONE_MAX = .15;
 	//this is for the rc controller
-	double DEAD_ZONE_MAX = 0;
+	double DEAD_ZONE_MAX = .10;
 	
 
 	double CompMoveValuePlus=0.99;
@@ -62,7 +62,7 @@ public class EntropyDrive {
 	}
 		
 			
-	public boolean driveRobot(double MoveValue, double RotateValue){
+	public boolean driveRobot(double MoveValue, double RotateValue, boolean slow_mode){
 
 		double LeftMotors = 0; 
 		double RightMotors = 0; 
@@ -83,7 +83,14 @@ public class EntropyDrive {
 		//DriverStationLCD::GetInstance()->UpdateLCD();
 		
 		//Command motors
-		wpiDrive.setLeftRightMotorOutputs( LeftMotors, RightMotors );
+		if(slow_mode)
+		{
+			wpiDrive.setLeftRightMotorOutputs( LeftMotors/2.0, RightMotors/2.0 );
+		}
+		else
+		{
+			wpiDrive.setLeftRightMotorOutputs( LeftMotors, RightMotors );
+		}
 
 		return true;
 	}

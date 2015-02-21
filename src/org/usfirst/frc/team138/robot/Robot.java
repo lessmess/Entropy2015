@@ -61,6 +61,7 @@ public class Robot extends IterativeRobot
     
 	public static OI oi;
 
+	boolean slow_mode;
 
 	
     /**
@@ -124,6 +125,8 @@ public class Robot extends IterativeRobot
       lift1 = false;
       lift2 = false;
       lift3 = false;
+      
+      slow_mode = false;
     }
 
     /**
@@ -149,7 +152,7 @@ public class Robot extends IterativeRobot
         	//gamepad
         	//RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(4));
         	//rc controller
-        	RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(0));
+        	RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(0), slow_mode);
         	SmartDashboard.putNumber("range", RangeFinder.getVoltage());
         	if(GameStick.getRawButton(2))
         	{
@@ -167,6 +170,23 @@ public class Robot extends IterativeRobot
         	{
         		wrist.down();
         	}
+        	
+        	if(GameStick.getRawButton(9))
+        	{
+        		mantis.in();
+        	}
+        	
+        	if(GameStick.getRawButton(10))
+        	{
+        		mantis.out();
+        	}
+        	
+        	if(GameStick.getRawButton(11))
+        	{
+        		slow_mode = !slow_mode;
+        	}
+        	
+        	
         	if(GameStick.getRawButton(5))
         	{
         		armExtension.out();
