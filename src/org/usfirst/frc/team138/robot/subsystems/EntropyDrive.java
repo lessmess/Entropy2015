@@ -11,9 +11,9 @@ public class EntropyDrive {
 	int y_index;
 	
 	//this is for gamepad driving
-	//double DEAD_ZONE_MAX = .15;
+	double DEAD_ZONE_MAX = .15;
 	//this is for the rc controller
-	double DEAD_ZONE_MAX = .10;
+	//double DEAD_ZONE_MAX = .10;
 	
 
 	double CompMoveValuePlus=0.99;

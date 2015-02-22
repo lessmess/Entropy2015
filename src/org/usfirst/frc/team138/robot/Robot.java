@@ -150,9 +150,9 @@ public class Robot extends IterativeRobot
         	SmartDashboard.putNumber("throttle", DriveStick.getY());
         	SmartDashboard.putNumber("rotate", DriveStick.getRawAxis(0));
         	//gamepad
-        	//RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(4));
+        	RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(4), slow_mode);
         	//rc controller
-        	RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(0), slow_mode);
+        	//RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(0), slow_mode);
         	SmartDashboard.putNumber("range", RangeFinder.getVoltage());
         	if(GameStick.getRawButton(2))
         	{
@@ -183,7 +183,7 @@ public class Robot extends IterativeRobot
         	
         	if(GameStick.getRawButton(11))
         	{
-        		slow_mode = !slow_mode;
+        		//slow_mode = !slow_mode;
         	}
         	
         	
