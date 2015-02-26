@@ -19,7 +19,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 
+
 import org.usfirst.frc.team138.robot.subsystems.*;
+
+import autonomous.Autonomous;
 
 
 public class Robot extends IterativeRobot
@@ -38,6 +41,8 @@ public class Robot extends IterativeRobot
 	IODefinitions test;
 	
 	AnalogInput RangeFinder;
+	
+	Autonomous autonomous;
 	
 	public static Claw claw;
     public static Wrist wrist;
@@ -84,6 +89,8 @@ public class Robot extends IterativeRobot
 		this.DriveStick = new Joystick(IODefinitions.USB_PORT_1);
 		this.GameStick = new Joystick(IODefinitions.USB_PORT_2);	
 	    this.RobotDrive = new EntropyDrive();
+	    
+	    autonomous = new Autonomous(RobotDrive);
 
 	    lift1 = false;
 	    lift2 = false;
@@ -97,7 +104,7 @@ public class Robot extends IterativeRobot
     public void autonomousInit() 
     {
        //  schedule the autonomous command (example)
-        
+        autonomous.Init();
     }
 
     /**
@@ -106,6 +113,7 @@ public class Robot extends IterativeRobot
     public void autonomousPeriodic() 
     {
         Scheduler.getInstance().run();
+        autonomous.Update();
     }
 
     public void teleopInit() 
