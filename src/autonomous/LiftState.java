@@ -14,6 +14,9 @@ public class LiftState extends AutonomousState {
 	private int delayLimit;
 	private double destination;
 	private AnalogInput range;
+	private double lastRange;
+	private double thisRange;
+	private double[] rangeArray = new double[5];
 	
 	public LiftState(AnalogInput range, Lift lift, double Destination)
 	{
@@ -33,15 +36,30 @@ public class LiftState extends AutonomousState {
 		// Print information to the SmartDashboard
 		SmartDashboard.putString("State", "Lift State");
 		
-		if (range.getVoltage() < destination)
+		for (int i=0;i<5;i++)
 		{
-			lift.up();
-			return false;
+			rangeArray[i] = range.getVoltage();
 		}
-		else 
+		
+		double minRange = 10;
+		
+		for (int i=0;i<5;i++)
+		{
+			if (rangeArray[i] < minRange)
+			{
+				minRange = rangeArray[i];
+			}
+		}
+		
+		if (minRange > destination && minRange < 10)
 		{
 			lift.stop();
 			return true;
+		}
+		else 
+		{
+			lift.up();
+			return false;
 		}
 		
 		

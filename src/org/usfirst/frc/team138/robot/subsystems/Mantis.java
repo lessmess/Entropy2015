@@ -39,18 +39,24 @@ public class Mantis extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void out()
+    public void outLeft()
     {
     	left.set( true );
-    	right.set( true );
-
     }
     
-    public void in()
+    public void inLeft()
     {
-    	right.set( false );
     	left.set( false );
-
+    }
+    
+    public void outRight()
+    {
+    	left.set( true );
+    }
+    
+    public void inRight()
+    {
+    	left.set( false );
     }
 }
 
