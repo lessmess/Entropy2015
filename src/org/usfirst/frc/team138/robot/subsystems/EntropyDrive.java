@@ -25,7 +25,7 @@ public class EntropyDrive {
 	CANJaguar MotorDriveRight1;
 	CANJaguar MotorDriveLeft2;
 	CANJaguar MotorDriveRight2;
-	RobotDrive wpiDrive;
+	public RobotDrive wpiDrive;
 
 	double dampValue=0.05;
 	public EntropyDrive(){

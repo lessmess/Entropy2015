@@ -19,7 +19,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 
+
 import org.usfirst.frc.team138.robot.subsystems.*;
+
+import autonomous.Autonomous;
 
 
 public class Robot extends IterativeRobot
@@ -38,6 +41,8 @@ public class Robot extends IterativeRobot
 	IODefinitions test;
 	
 	AnalogInput RangeFinder;
+	
+	Autonomous autonomous;
 	
 	public static Claw claw;
     public static Wrist wrist;
@@ -84,6 +89,8 @@ public class Robot extends IterativeRobot
 		this.DriveStick = new Joystick(IODefinitions.USB_PORT_1);
 		this.GameStick = new Joystick(IODefinitions.USB_PORT_2);	
 	    this.RobotDrive = new EntropyDrive();
+	    
+	    autonomous = new Autonomous(RobotDrive, claw, wrist, lift, RangeFinder);
 
 	    lift1 = false;
 	    lift2 = false;
@@ -97,7 +104,7 @@ public class Robot extends IterativeRobot
     public void autonomousInit() 
     {
        //  schedule the autonomous command (example)
-        
+        autonomous.Init();
     }
 
     /**
@@ -106,6 +113,7 @@ public class Robot extends IterativeRobot
     public void autonomousPeriodic() 
     {
         Scheduler.getInstance().run();
+        autonomous.Update();
     }
 
     public void teleopInit() 
@@ -154,11 +162,11 @@ public class Robot extends IterativeRobot
         	//rc controller
         	//RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(0), slow_mode);
         	SmartDashboard.putNumber("range", RangeFinder.getVoltage());
-        	if(GameStick.getRawButton(2))
+        	if(GameStick.getRawButton(1))
         	{
         		claw.open();
         	}
-        	if(GameStick.getRawButton(1))
+        	if(GameStick.getRawButton(2))
         	{
         		claw.close();
         	}
@@ -173,12 +181,12 @@ public class Robot extends IterativeRobot
         	
         	if(GameStick.getRawButton(9))
         	{
-        		mantis.in();
+        		mantis.out();
         	}
         	
         	if(GameStick.getRawButton(10))
         	{
-        		mantis.out();
+        		mantis.in();
         	}
         	
         	if(GameStick.getRawButton(11))
@@ -187,12 +195,12 @@ public class Robot extends IterativeRobot
         	}
         	
         	
-        	if(GameStick.getRawButton(5))
+        	if(GameStick.getRawButton(7))
         	{
         		armExtension.out();
         	}
         	
-        	else if(GameStick.getRawButton(7))
+        	else if(GameStick.getRawButton(5))
         	{
         		armExtension.in();
         	}
