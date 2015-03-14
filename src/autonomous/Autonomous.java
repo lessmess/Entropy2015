@@ -53,6 +53,7 @@ public class Autonomous {
 		//Create a queue of commands to grab the container, and push the tote into the auto zone
 		BothGrabQueue.add(new RotationState(30, true, .5, LeftEncoder, RightEncoder, EntDrive));
 		BothGrabQueue.add(new WristState(wrist, claw, true));
+		BothGrabQueue.add(new DriveState (2, true, 0.4, LeftEncoder, RightEncoder, EntDrive));
 		BothGrabQueue.add(new LiftState(range, lift, .2));
 		BothGrabQueue.add(new RotationState(60, true, .5, LeftEncoder, RightEncoder, EntDrive));
 		BothGrabQueue.add(new DriveState (144, true, 0.4, LeftEncoder, RightEncoder, EntDrive));
@@ -61,7 +62,7 @@ public class Autonomous {
 		//Create a queue of commands for grabbing the container and driving into the auto zone
 		//ContainerGrabQueue.add(new DriveState(160, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
 		ContainerGrabQueue.add(new WristState(wrist, claw, true));
-		ContainerGrabQueue.add(new RotationState(30, true, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		ContainerGrabQueue.add(new RotationState(45, true, 0.5, LeftEncoder, RightEncoder, EntDrive));
 		ContainerGrabQueue.add(new LiftState(range, lift, .15));
 		ContainerGrabQueue.add(new DriveState (112, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
 		ContainerGrabQueue.add(new IdleState(EntDrive));
@@ -85,20 +86,20 @@ public class Autonomous {
 	{		
 		//Select the autonomous queue to run based on the selector switch
 		/*if (SelectorSwitch.getVoltage() < 0.4)
-	    { */
+	    { 
 			// Standard autonomous procedure selected
 			if (ContainerGrabQueue.peek().Update())
 	    	{
 				ContainerGrabQueue.remove();
-			} /*
+			} 
 	     }
 	    else if (SelectorSwitch.getVoltage() >= 0.4 && SelectorSwitch.getVoltage() < 0.8)
-	    {
+	    { */
 	    	// Container Grab & tote push autonomous procedure selected
 	    	if (BothGrabQueue.peek().Update())
 			{
 				BothGrabQueue.remove();
-			} 
+			} /*
 	    else if (SelectorSwitch.getVoltage() >= 0.8 && SelectorSwitch.getVoltage() < 1.2)
 	    { 
 	    	// Container Grab autonomous procedure selected

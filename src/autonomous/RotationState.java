@@ -64,7 +64,7 @@ public class RotationState extends AutonomousState{
 		
 		if (Math.abs(leftEncoder.getDistance()) >= targetRotation || Math.abs(rightEncoder.getDistance()) >= targetRotation)
 		{
-			entropyDrive.driveRobot(0, 0, false);
+			entropyDrive.driveRobot(0, 0);
 			leftEncoder.reset();
 			rightEncoder.reset();
 			return true;

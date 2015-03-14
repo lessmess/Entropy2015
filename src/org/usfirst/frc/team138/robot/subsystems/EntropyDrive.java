@@ -62,7 +62,7 @@ public class EntropyDrive {
 	}
 		
 			
-	public boolean driveRobot(double MoveValue, double RotateValue, boolean slow_mode){
+	public boolean driveRobot(double MoveValue, double RotateValue){
 
 		double LeftMotors = 0; 
 		double RightMotors = 0; 
@@ -83,14 +83,8 @@ public class EntropyDrive {
 		//DriverStationLCD::GetInstance()->UpdateLCD();
 		
 		//Command motors
-		if(slow_mode)
-		{
-			wpiDrive.setLeftRightMotorOutputs( LeftMotors/2.0, RightMotors/2.0 );
-		}
-		else
-		{
-			wpiDrive.setLeftRightMotorOutputs( LeftMotors, RightMotors );
-		}
+		wpiDrive.setLeftRightMotorOutputs( LeftMotors, RightMotors );
+		
 
 		return true;
 	}

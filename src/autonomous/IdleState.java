@@ -24,7 +24,7 @@ public class IdleState extends AutonomousState{
 		SmartDashboard.putString("State", "Idle State");
 		
 		// Continually command the robot not to move to keep the heartbeat going
-		entropyDrive.driveRobot(0.0, 0.0, false);
+		entropyDrive.driveRobot(0.0, 0.0);
 		
 		// Always return false, the robot can never exit IdleState once entered
 		return false;		

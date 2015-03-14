@@ -73,7 +73,7 @@ public class DriveState extends AutonomousState {
 				Math.abs(rightEncoderDistance) > targetPosition)
 		{
 			//Robot is close enough to target position that it is now OK to stop
-			entropyDrive.driveRobot(0.0, 0.0, false);
+			entropyDrive.driveRobot(0.0, 0.0);
 			
 			leftEncoder.reset();
 			rightEncoder.reset();

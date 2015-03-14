@@ -27,41 +27,41 @@ public class WiggleState extends AutonomousState{
 		if (MegaWiggle)
 		{
 			if (counter < x){
-				EntDrive.driveRobot(0.0, 0.9, false);
+				EntDrive.driveRobot(0.0, 0.9);
 				counter++;
 				return false;
 			}
 			else if (counter < 3 * x) {
-				EntDrive.driveRobot(0.0, -0.9, false);
+				EntDrive.driveRobot(0.0, -0.9);
 				counter++;
 				return false;
 			}
 			else if (counter < 5 * x) {
-				EntDrive.driveRobot(0.0, 0.9, false);
+				EntDrive.driveRobot(0.0, 0.9);
 				counter++;
 				return false;
 			}
 			else if (counter < 7 * x)
 			{
-				EntDrive.driveRobot(0.0, -0.9, false);
+				EntDrive.driveRobot(0.0, -0.9);
 				counter++;
 				return false;
 			}
 			else if (counter < 9 * x)
 			{
-				EntDrive.driveRobot(0.0, 0.9, false);
+				EntDrive.driveRobot(0.0, 0.9);
 				counter++;
 				return false;
 			}
 			else if (counter < 10 * x)
 			{
-				EntDrive.driveRobot(0.0,  -0.9, false);
+				EntDrive.driveRobot(0.0,  -0.9);
 				counter++;
 				return false;
 			}
 			else 
 			{
-				EntDrive.driveRobot(0.0, 0.0, false);
+				EntDrive.driveRobot(0.0, 0.0);
 				counter++;
 				return true;
 			}
@@ -69,22 +69,22 @@ public class WiggleState extends AutonomousState{
 		else
 		{
 			if (counter < x){
-				EntDrive.driveRobot(0.0, 0.6, false);
+				EntDrive.driveRobot(0.0, 0.6);
 				counter++;
 				return false;
 			}
 			else if (counter < 3 * x) {
-				EntDrive.driveRobot(0.0, -0.6, false);
+				EntDrive.driveRobot(0.0, -0.6);
 				counter++;
 				return false;
 			}
 			else if (counter < 4 * x) {
-				EntDrive.driveRobot(0.0, 0.6, false);
+				EntDrive.driveRobot(0.0, 0.6);
 				counter++;
 				return false;
 			}
 			else {
-				EntDrive.driveRobot(0.0, 0.0, false);
+				EntDrive.driveRobot(0.0, 0.0);
 				counter++;
 				return true;
 			}
