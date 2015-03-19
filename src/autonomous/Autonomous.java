@@ -10,6 +10,7 @@ import org.usfirst.frc.team138.robot.subsystems.Wrist;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Autonomous {
 
@@ -51,9 +52,9 @@ public class Autonomous {
 	public void Init()
 	{
 		//Create a queue of commands to grab the container, and push the tote into the auto zone
-		BothGrabQueue.add(new LiftState(range, lift, .45));
-		BothGrabQueue.add(new RotationState(90, true, .5, LeftEncoder, RightEncoder, EntDrive));
-		BothGrabQueue.add(new DriveState (144, true, 0.4, LeftEncoder, RightEncoder, EntDrive));
+		BothGrabQueue.add(new LiftState(range, lift, .40));
+		BothGrabQueue.add(new RotationState(80, true, .5, LeftEncoder, RightEncoder, EntDrive));
+		BothGrabQueue.add(new DriveState (144, true, 0.6, LeftEncoder, RightEncoder, EntDrive));
 		BothGrabQueue.add(new IdleState(EntDrive));
 		
 		//Create a queue of commands for grabbing the container and driving into the auto zone
@@ -77,24 +78,28 @@ public class Autonomous {
 		IdleQueue.add(new IdleState(EntDrive));
 	}
 
+
 	public boolean Update()
 	{		
+
+    	SmartDashboard.putDouble("Voltage", SelectorSwitch.getVoltage());
 		//Select the autonomous queue to run based on the selector switch
-		//if (SelectorSwitch.getVoltage() < 0.4)
-	   // { 
+		/*if (SelectorSwitch.getVoltage() < 0.4)
+	    { 
 			// Standard autonomous procedure selected
 			if (ContainerGrabQueue.peek().Update())
 	    	{
 				ContainerGrabQueue.remove();
 			} 
-	     //}
-	    /*else if (SelectorSwitch.getVoltage() >= 0.4 && SelectorSwitch.getVoltage() < 0.8)
+	     }
+	    else if (SelectorSwitch.getVoltage() >= 0.4 && SelectorSwitch.getVoltage() < 0.8)
 	    { 
-	    	// Container Grab & tote push autonomous procedure selected
-	    	//if (BothGrabQueue.peek().Update())
-			//{
-			//	BothGrabQueue.remove();
-			//} /*
+	    	//Container Grab & tote push autonomous procedure selected
+	    	if (BothGrabQueue.peek().Update())
+			{
+				BothGrabQueue.remove();
+			} 
+	    }
 	    else if (SelectorSwitch.getVoltage() >= 0.8 && SelectorSwitch.getVoltage() < 1.2)
 	    { 
 	    	// Container Grab autonomous procedure selected
@@ -104,13 +109,15 @@ public class Autonomous {
 			} 
 	    }
 	    else
-	    {
+	    {*/
 	    	if (IdleQueue.peek().Update())
 			{
 				IdleQueue.remove();
 			}
-	    }
-		*/
+	  //  }
+		
 		return false;
-	}	
+	
+	}
 }
+

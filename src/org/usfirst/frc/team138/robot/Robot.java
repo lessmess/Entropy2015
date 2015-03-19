@@ -75,6 +75,7 @@ public class Robot extends IterativeRobot
      */
     public void robotInit() 
     {
+    	
     	RobotMap.init();
 		oi = new OI();
 		claw = new Claw();
@@ -159,7 +160,6 @@ public class Robot extends IterativeRobot
         	SmartDashboard.putNumber("rotate", DriveStick.getRawAxis(0));
         	//gamepad
         	RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(4));
-        	
         	//rc controller
         	//RobotDrive.driveRobot(DriveStick.getY(), DriveStick.getRawAxis(0), slow_mode);
         	SmartDashboard.putNumber("range", RangeFinder.getVoltage());

@@ -53,7 +53,7 @@ public class RotationState extends AutonomousState{
 	public boolean Update()
 	{
 		/* PRINT INFORMATION TO DRIVER STATION */
-		error = leftEncoderDistance - rightEncoderDistance;
+		error = leftEncoder.getDistance() - rightEncoder.getDistance();
 		
 		SmartDashboard.putString("State", "Rotation State");
 		SmartDashboard.putNumber("Right Encoder Distance", rightEncoder.getDistance());

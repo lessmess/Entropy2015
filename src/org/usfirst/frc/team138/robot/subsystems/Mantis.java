@@ -51,12 +51,12 @@ public class Mantis extends Subsystem {
     
     public void outRight()
     {
-    	left.set( true );
+    	right.set( true );
     }
     
     public void inRight()
     {
-    	left.set( false );
+    	right.set( false );
     }
 }
 
