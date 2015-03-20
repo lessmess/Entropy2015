@@ -71,12 +71,12 @@ public class RotationState extends AutonomousState{
 		}
 		else if (leftOrRight)
 		{
-			entropyDrive.wpiDrive.setLeftRightMotorOutputs(speed, -rightSpeed);
+			entropyDrive.wpiDrive.setLeftRightMotorOutputs(speed, -speed);
 			return false;
 		}
 		else 
 		{
-			entropyDrive.wpiDrive.setLeftRightMotorOutputs(-speed, rightSpeed);
+			entropyDrive.wpiDrive.setLeftRightMotorOutputs(-speed, speed);
 			return false;
 		}
 	}

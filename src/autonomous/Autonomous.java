@@ -7,6 +7,7 @@ import org.usfirst.frc.team138.robot.subsystems.Claw;
 import org.usfirst.frc.team138.robot.subsystems.EntropyDrive;
 import org.usfirst.frc.team138.robot.subsystems.Lift;
 import org.usfirst.frc.team138.robot.subsystems.Wrist;
+import org.usfirst.frc.team138.robot.subsystems.ArmExtension;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -18,6 +19,7 @@ public class Autonomous {
 	Claw claw;
 	Wrist wrist;
 	Lift lift;
+	ArmExtension arm;
 	
 	AnalogInput SelectorSwitch;
 	private static final int selectorSwitchPort = 3;
@@ -33,12 +35,13 @@ public class Autonomous {
 	Queue<AutonomousState> IdleQueue = new LinkedList<AutonomousState>();
 	private AnalogInput range;
 	
-	public Autonomous(EntropyDrive entDrive, Claw autoClaw, Wrist autoWrist, Lift lift, AnalogInput RangeFinder)
+	public Autonomous(EntropyDrive entDrive, ArmExtension arm, Claw autoClaw, Wrist autoWrist, Lift lift, AnalogInput RangeFinder)
 	{
 		this.EntDrive = entDrive;
 		this.claw = autoClaw;
 		this.wrist = autoWrist;
 		this.lift = lift;
+		this.arm = arm;
 		this.range = RangeFinder;
 		this.SelectorSwitch = new AnalogInput(selectorSwitchPort);
 		
@@ -52,15 +55,16 @@ public class Autonomous {
 	public void Init()
 	{
 		//Create a queue of commands to grab the container, and push the tote into the auto zone
+		BothGrabQueue.add(new RotationState(20, true, .3, LeftEncoder, RightEncoder, EntDrive));
 		BothGrabQueue.add(new LiftState(range, lift, .40));
-		BothGrabQueue.add(new RotationState(80, true, .5, LeftEncoder, RightEncoder, EntDrive));
-		BothGrabQueue.add(new DriveState (144, true, 0.6, LeftEncoder, RightEncoder, EntDrive));
+		BothGrabQueue.add(new RotationState(80, true, .4, LeftEncoder, RightEncoder, EntDrive));
+		BothGrabQueue.add(new DriveState (160, true, 0.4, LeftEncoder, RightEncoder, EntDrive));
 		BothGrabQueue.add(new IdleState(EntDrive));
 		
 		//Create a queue of commands for grabbing the container and driving into the auto zone
 		//ContainerGrabQueue.add(new DriveState(160, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
-		ContainerGrabQueue.add(new LiftState(range, lift, .4));
-		ContainerGrabQueue.add(new DriveState (112, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		ContainerGrabQueue.add(new LiftState(range, lift, .3));
+		ContainerGrabQueue.add(new DriveState (108, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
 		ContainerGrabQueue.add(new IdleState(EntDrive));
 		
 		//Create a queue for of commands for grabbing the two containers on the step
@@ -74,17 +78,23 @@ public class Autonomous {
 		MantisArmQueue.add(new IdleState(EntDrive));
 		
 		//Create a queue (of one) to not do anything
-		IdleQueue.add(new WiggleState(EntDrive, false));
 		IdleQueue.add(new IdleState(EntDrive));
 	}
 
 
 	public boolean Update()
 	{		
+		/*
+		1: .004
+		2: .399
+		3: .796
+		4: 1.194
+		5: 1.588
+		 */
 
     	SmartDashboard.putDouble("Voltage", SelectorSwitch.getVoltage());
 		//Select the autonomous queue to run based on the selector switch
-		/*if (SelectorSwitch.getVoltage() < 0.4)
+		if (SelectorSwitch.getVoltage() < .3)
 	    { 
 			// Standard autonomous procedure selected
 			if (ContainerGrabQueue.peek().Update())
@@ -92,7 +102,7 @@ public class Autonomous {
 				ContainerGrabQueue.remove();
 			} 
 	     }
-	    else if (SelectorSwitch.getVoltage() >= 0.4 && SelectorSwitch.getVoltage() < 0.8)
+	    else if (SelectorSwitch.getVoltage() >= 0.5 && SelectorSwitch.getVoltage() < 1.0)
 	    { 
 	    	//Container Grab & tote push autonomous procedure selected
 	    	if (BothGrabQueue.peek().Update())
@@ -100,7 +110,7 @@ public class Autonomous {
 				BothGrabQueue.remove();
 			} 
 	    }
-	    else if (SelectorSwitch.getVoltage() >= 0.8 && SelectorSwitch.getVoltage() < 1.2)
+	    else if (SelectorSwitch.getVoltage() >= 1.2)
 	    { 
 	    	// Container Grab autonomous procedure selected
 	    	if (MantisArmQueue.peek().Update())
@@ -109,12 +119,12 @@ public class Autonomous {
 			} 
 	    }
 	    else
-	    {*/
+	    {
 	    	if (IdleQueue.peek().Update())
 			{
 				IdleQueue.remove();
 			}
-	  //  }
+	    }
 		
 		return false;
 	
