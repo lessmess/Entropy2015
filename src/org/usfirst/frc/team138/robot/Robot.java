@@ -200,6 +200,12 @@ public class Robot extends IterativeRobot
         		mantis.inLeft();
         	}    
         	
+        	if(DriveStick.getRawButton(1))
+        	{
+        		mantis.inLeft();
+        		mantis.inRight();
+        	}
+        	
         	if(GameStick.getRawButton(7))
         	{
         		armExtension.out();

@@ -71,10 +71,10 @@ public class Autonomous {
 		MantisArmQueue.add(new DriveState(9.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
 		MantisArmQueue.add(new MantisArmState(true));
 		MantisArmQueue.add(new WiggleState(EntDrive, false));
-		MantisArmQueue.add(new DriveState(190, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
+		MantisArmQueue.add(new DriveState(120, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
 		MantisArmQueue.add(new MantisArmState(false));
 		MantisArmQueue.add(new WiggleState(EntDrive, true));
-		MantisArmQueue.add(new DriveState(90, false, 0.6, LeftEncoder, RightEncoder, EntDrive));
+		MantisArmQueue.add(new DriveState(15, false, 0.6, LeftEncoder, RightEncoder, EntDrive));
 		MantisArmQueue.add(new IdleState(EntDrive));
 		
 		//Create a queue (of one) to not do anything
