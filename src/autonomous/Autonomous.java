@@ -33,6 +33,7 @@ public class Autonomous {
 	Queue<AutonomousState> ContainerGrabQueue = new LinkedList<AutonomousState>();
 	Queue<AutonomousState> MantisArmQueue = new LinkedList<AutonomousState>();
 	Queue<AutonomousState> IdleQueue = new LinkedList<AutonomousState>();
+	Queue<AutonomousState> WTF = new LinkedList<AutonomousState>();
 	private AnalogInput range;
 	
 	public Autonomous(EntropyDrive entDrive, ArmExtension arm, Claw autoClaw, Wrist autoWrist, Lift lift, AnalogInput RangeFinder)
@@ -54,6 +55,25 @@ public class Autonomous {
 	
 	public void Init()
 	{
+		WTF.add(new DriveState(9.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new MantisArmState(true));
+		WTF.add(new WiggleState(EntDrive, false));
+		//WTF.add(new DriveState(120, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(90, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new MantisArmState(false));
+		WTF.add(new WiggleState(EntDrive, true));
+		/*WTF.add(new DriveState(34, false, 0.7, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(34, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(34, false, 0.35, LeftEncoder, RightEncoder, EntDrive));*/
+		WTF.add(new DriveState(24, false, 0.7, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(24, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(24, false, 0.35, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new RotationState(100, false, .4, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(169, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new RotationState(100, true, .6, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new IdleState(EntDrive));
+		
+		
 		//Create a queue of commands to grab the container, and push the tote into the auto zone
 		BothGrabQueue.add(new RotationState(20, true, .3, LeftEncoder, RightEncoder, EntDrive));
 		BothGrabQueue.add(new LiftState(range, lift, .40));
@@ -71,7 +91,8 @@ public class Autonomous {
 		MantisArmQueue.add(new DriveState(9.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
 		MantisArmQueue.add(new MantisArmState(true));
 		MantisArmQueue.add(new WiggleState(EntDrive, false));
-		MantisArmQueue.add(new DriveState(120, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
+		MantisArmQueue.add(new DriveState(60, true, 0.55, LeftEncoder, RightEncoder, EntDrive));
+		MantisArmQueue.add(new DriveState(60, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
 		MantisArmQueue.add(new MantisArmState(false));
 		MantisArmQueue.add(new WiggleState(EntDrive, true));
 		MantisArmQueue.add(new DriveState(15, false, 0.6, LeftEncoder, RightEncoder, EntDrive));
@@ -94,7 +115,7 @@ public class Autonomous {
 
     	SmartDashboard.putDouble("Voltage", SelectorSwitch.getVoltage());
 		//Select the autonomous queue to run based on the selector switch
-		if (SelectorSwitch.getVoltage() < .3)
+		/*if (SelectorSwitch.getVoltage() < .3)
 	    { 
 			// Standard autonomous procedure selected
 			if (ContainerGrabQueue.peek().Update())
@@ -124,8 +145,11 @@ public class Autonomous {
 			{
 				IdleQueue.remove();
 			}
-	    }
-		
+	    }*/
+    	if (WTF.peek().Update())
+		{
+    		WTF.remove();
+		}
 		return false;
 	
 	}
