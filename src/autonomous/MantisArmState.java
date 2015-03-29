@@ -13,6 +13,7 @@ public class MantisArmState extends AutonomousState {
 	
 	private int delayCounter;
 	private static final int delayLimit = 50;
+	private static final int delayLimit2 = 0;
 	
 	private Solenoid leftMantisArmSolenoid = RobotMap.leftMantis;
 	private Solenoid rightMantisArmSolenoid = RobotMap.rightMantis;
@@ -33,6 +34,7 @@ public class MantisArmState extends AutonomousState {
 		// Print information to the SmartDashboard
 		SmartDashboard.putString("State", "Mantis Arms State");
 		
+		
 		if (delayCounter == 0)
 		{
 			// Extend or retract the mantis arms
@@ -43,14 +45,28 @@ public class MantisArmState extends AutonomousState {
 		// Keep running the Update function until an arbitrary amount of time has
 		// passed to allow the mantis arms to fully extend/retract
 		delayCounter++;
-		
-		if (delayCounter >= delayLimit)
+		if (targetArmState == false)
 		{
-			return true;
+			if (delayCounter >= delayLimit2)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
-			return false;
+			if (delayCounter >= delayLimit)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
+		
 	}	
 }

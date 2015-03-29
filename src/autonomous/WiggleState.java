@@ -41,7 +41,7 @@ public class WiggleState extends AutonomousState{
 				counter++;
 				return false;
 			}
-			else if (counter < 7 * x)
+			else if (counter < 6 * x)
 			{
 				EntDrive.driveRobot(0.0, -0.9);
 				counter++;
@@ -69,17 +69,17 @@ public class WiggleState extends AutonomousState{
 		else
 		{
 			if (counter < x){
-				EntDrive.driveRobot(0.0, 0.6);
+				EntDrive.driveRobot(0.0, 0.7);
 				counter++;
 				return false;
 			}
 			else if (counter < 3 * x) {
-				EntDrive.driveRobot(0.0, -0.6);
+				EntDrive.driveRobot(0.0, -0.7);
 				counter++;
 				return false;
 			}
 			else if (counter < 4 * x) {
-				EntDrive.driveRobot(0.0, 0.6);
+				EntDrive.driveRobot(0.0, 0.7);
 				counter++;
 				return false;
 			}

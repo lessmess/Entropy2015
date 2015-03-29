@@ -34,6 +34,7 @@ public class Autonomous {
 	Queue<AutonomousState> MantisArmQueue = new LinkedList<AutonomousState>();
 	Queue<AutonomousState> IdleQueue = new LinkedList<AutonomousState>();
 	Queue<AutonomousState> WTF = new LinkedList<AutonomousState>();
+	Queue<AutonomousState> WTF2 = new LinkedList<AutonomousState>();
 	private AnalogInput range;
 	
 	public Autonomous(EntropyDrive entDrive, ArmExtension arm, Claw autoClaw, Wrist autoWrist, Lift lift, AnalogInput RangeFinder)
@@ -55,23 +56,50 @@ public class Autonomous {
 	
 	public void Init()
 	{
+		/*
+		 rotation (from back):
+		 false = left
+		 true = right
+
+		 driving (not from back):
+		 false = backwards
+		 true = forwards
+		 */
+		
+		
 		WTF.add(new DriveState(9.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
 		WTF.add(new MantisArmState(true));
 		WTF.add(new WiggleState(EntDrive, false));
 		//WTF.add(new DriveState(120, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new DriveState(90, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(71, true, 0.8, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(29, true, 0.55, LeftEncoder, RightEncoder, EntDrive));
+		//WTF.add(new DriveState(12, true, 0.45, LeftEncoder, RightEncoder, EntDrive));
 		WTF.add(new MantisArmState(false));
 		WTF.add(new WiggleState(EntDrive, true));
+		WTF.add(new RotationState(107, true, .4, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(144, true, 0.95, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(29, true, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(10, true, 0.45, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new RotationState(120, false, .4, LeftEncoder, RightEncoder, EntDrive));
 		/*WTF.add(new DriveState(34, false, 0.7, LeftEncoder, RightEncoder, EntDrive));
 		WTF.add(new DriveState(34, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
 		WTF.add(new DriveState(34, false, 0.35, LeftEncoder, RightEncoder, EntDrive));*/
-		WTF.add(new DriveState(24, false, 0.7, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new DriveState(24, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new DriveState(24, false, 0.35, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new RotationState(100, false, .4, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new DriveState(169, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new RotationState(100, true, .6, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(37, false, 0.55, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(36, false, 0.55, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(27, false, 0.55, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new MantisArmState(true));
+		WTF.add(new WiggleState(EntDrive, false));
 		WTF.add(new IdleState(EntDrive));
+		
+		WTF2.add(new DriveState(9.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		WTF2.add(new MantisArmState(true));
+		WTF2.add(new WiggleState(EntDrive, false));
+		WTF2.add(new DriveState(71, true, 0.8, LeftEncoder, RightEncoder, EntDrive));
+		WTF2.add(new DriveState(29, true, 0.55, LeftEncoder, RightEncoder, EntDrive));
+		WTF2.add(new MantisArmState(false));
+		WTF2.add(new WiggleState(EntDrive, true));
+		WTF2.add(new DriveState(120, true, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		WTF2.add(new IdleState(EntDrive));
 		
 		
 		//Create a queue of commands to grab the container, and push the tote into the auto zone
@@ -146,9 +174,9 @@ public class Autonomous {
 				IdleQueue.remove();
 			}
 	    }*/
-    	if (WTF.peek().Update())
+    	if (WTF2.peek().Update())
 		{
-    		WTF.remove();
+    		WTF2.remove();
 		}
 		return false;
 	
