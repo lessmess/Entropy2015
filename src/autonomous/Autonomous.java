@@ -11,6 +11,7 @@ import org.usfirst.frc.team138.robot.subsystems.ArmExtension;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Autonomous {
@@ -36,6 +37,7 @@ public class Autonomous {
 	Queue<AutonomousState> WTF = new LinkedList<AutonomousState>();
 	Queue<AutonomousState> WTF2 = new LinkedList<AutonomousState>();
 	private AnalogInput range;
+	private String mode;
 	
 	public Autonomous(EntropyDrive entDrive, ArmExtension arm, Claw autoClaw, Wrist autoWrist, Lift lift, AnalogInput RangeFinder)
 	{
@@ -128,56 +130,80 @@ public class Autonomous {
 		
 		//Create a queue (of one) to not do anything
 		IdleQueue.add(new IdleState(EntDrive));
+		
+		
+		
+		
+		
 	}
 
 
 	public boolean Update()
 	{		
 		/*
-		1: .004
+		1: .004 	
 		2: .399
 		3: .796
 		4: 1.194
 		5: 1.588
 		 */
-
-    	SmartDashboard.putDouble("Voltage", SelectorSwitch.getVoltage());
+		
+		mode = SmartDashboard.getString("Auto");
+		SmartDashboard.putString("mode", mode);
 		//Select the autonomous queue to run based on the selector switch
-		/*if (SelectorSwitch.getVoltage() < .3)
+		if (mode.equals("1"))
 	    { 
+			SmartDashboard.putString("test", "one");
 			// Standard autonomous procedure selected
 			if (ContainerGrabQueue.peek().Update())
 	    	{
 				ContainerGrabQueue.remove();
 			} 
 	     }
-	    else if (SelectorSwitch.getVoltage() >= 0.5 && SelectorSwitch.getVoltage() < 1.0)
+	    else if (mode.equals("2"))
 	    { 
+	    	SmartDashboard.putString("test", "two");
 	    	//Container Grab & tote push autonomous procedure selected
 	    	if (BothGrabQueue.peek().Update())
 			{
 				BothGrabQueue.remove();
 			} 
 	    }
-	    else if (SelectorSwitch.getVoltage() >= 1.2)
+	    else if (mode.equals("3"))
 	    { 
+	    	SmartDashboard.putString("test", "three");
 	    	// Container Grab autonomous procedure selected
 	    	if (MantisArmQueue.peek().Update())
 			{
 				MantisArmQueue.remove();
 			} 
 	    }
+	    else if (mode.equals("4"))
+	    { 
+	    	SmartDashboard.putString("test", "four");
+	    	// Container Grab autonomous procedure selected
+	    	if (WTF.peek().Update())
+			{
+				WTF.remove();
+			} 
+	    }
+	    else if (mode.equals("5"))
+	    { 
+	    	SmartDashboard.putString("test", "five");
+	    	// Container Grab autonomous procedure selected
+	    	if (WTF2.peek().Update())
+			{
+				WTF2.remove();
+			} 
+	    }
 	    else
 	    {
+	    	SmartDashboard.putString("test", "sad");
 	    	if (IdleQueue.peek().Update())
 			{
 				IdleQueue.remove();
 			}
-	    }*/
-    	if (WTF2.peek().Update())
-		{
-    		WTF2.remove();
-		}
+	    }
 		return false;
 	
 	}

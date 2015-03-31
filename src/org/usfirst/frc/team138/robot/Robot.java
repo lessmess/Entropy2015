@@ -90,7 +90,7 @@ public class Robot extends IterativeRobot
 		this.DriveStick = new Joystick(IODefinitions.USB_PORT_1);
 		this.GameStick = new Joystick(IODefinitions.USB_PORT_2);	
 	    this.RobotDrive = new EntropyDrive();
-	    
+	    SmartDashboard.putString("Auto", "");
 	    autonomous = new Autonomous(RobotDrive, armExtension, claw, wrist, lift, RangeFinder);
 
 	    lift1 = false;
