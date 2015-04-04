@@ -32,7 +32,7 @@ public class DriveState extends AutonomousState {
 	private double rightSpeed;
 
 	// 0.05 is a good scale factor for 16.5 inches
-	private static final double scaleFactor = 0.05;
+	private static final double scaleFactor = 0.9;
 	private static final double Dead_Zone = 0.5;
 	
 	// targetPosition is in inches
@@ -86,7 +86,7 @@ public class DriveState extends AutonomousState {
 			error = leftEncoderDistance - rightEncoderDistance;
 			
 			rightSpeed = forwardSpeed + error * scaleFactor;
-			
+			leftSpeed = forwardSpeed - error * 0.1;
 			//Robot is not at target position yet, keep driving
 				//entropyDrive.wpiDrive.setLeftRightMotorOutputs(0,0);
 

@@ -47,6 +47,12 @@ public class WiggleState extends AutonomousState{
 				counter++;
 				return false;
 			}
+			else if (counter < 6.5 * x)
+			{
+				EntDrive.driveRobot(0.0,0.0);
+				counter++;
+				return false;
+			}
 			else if (counter < 8 * x)
 			{
 				EntDrive.driveRobot(0.0, 0.9);

@@ -20,18 +20,20 @@ public class RotationState extends AutonomousState{
 	double targetRotation;
 	double speed;
 	boolean leftOrRight;
+	boolean wiggle;
 	
 	double leftEncoderDistance;
 	double rightEncoderDistance;
 	double error;
 	double rightSpeed;
 	double currentPosition;
-	
+	double counter;
 
 
 	// targetRotation is an angle, leftOrRight is true to turn right, speed is the speed of the rotation
-	public RotationState(double targetRotation, boolean leftOrRight, double speed,  Encoder leftEncoder, Encoder rightEncoder, EntropyDrive entDrive)
+	public RotationState(double targetRotation, boolean leftOrRight, double speed, boolean wiggle, Encoder leftEncoder, Encoder rightEncoder, EntropyDrive entDrive)
 	{
+	  this.wiggle = wiggle;
 	  this.entropyDrive = entDrive;
 	  this.leftEncoder = leftEncoder;
 	  this.rightEncoder = rightEncoder;
@@ -43,6 +45,7 @@ public class RotationState extends AutonomousState{
 	  
 	  this.leftOrRight = leftOrRight;
 	  this.speed = speed;
+	  this.counter = 0;
 	}
 
 	public void Init()
@@ -52,6 +55,12 @@ public class RotationState extends AutonomousState{
 
 	public boolean Update()
 	{
+		if(counter < 20 && !wiggle)
+		{
+			counter++;
+			return false;
+		}
+		else{
 		/* PRINT INFORMATION TO DRIVER STATION */
 		error = leftEncoder.getDistance() - rightEncoder.getDistance();
 		
@@ -78,6 +87,7 @@ public class RotationState extends AutonomousState{
 		{
 			entropyDrive.wpiDrive.setLeftRightMotorOutputs(-speed, speed);
 			return false;
+		}
 		}
 	}
 }
