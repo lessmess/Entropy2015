@@ -55,7 +55,7 @@ public class RotationState extends AutonomousState{
 
 	public boolean Update()
 	{
-		if(counter < 20 && !wiggle)
+		if(counter < 40 && !wiggle)
 		{
 			counter++;
 			return false;

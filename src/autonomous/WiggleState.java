@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class WiggleState extends AutonomousState{
 
-	private static final int x = 10;
+	private static final int x = 20;
 	EntropyDrive EntDrive;
 	boolean MegaWiggle;
 	int counter;
@@ -75,17 +75,17 @@ public class WiggleState extends AutonomousState{
 		else
 		{
 			if (counter < x){
-				EntDrive.driveRobot(0.0, 0.7);
+				EntDrive.driveRobot(0.0, 0.8);
 				counter++;
 				return false;
 			}
 			else if (counter < 3 * x) {
-				EntDrive.driveRobot(0.0, -0.7);
+				EntDrive.driveRobot(0.0, -0.8);
 				counter++;
 				return false;
 			}
 			else if (counter < 4 * x) {
-				EntDrive.driveRobot(0.0, 0.7);
+				EntDrive.driveRobot(0.0, 0.8);
 				counter++;
 				return false;
 			}

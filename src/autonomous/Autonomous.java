@@ -71,7 +71,7 @@ public class Autonomous {
 		 */
 		
 		
-		WTF.add(new DriveState(9.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(15.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
 		WTF.add(new MantisArmState(true));
 		WTF.add(new WiggleState(EntDrive, false));
 		//WTF.add(new DriveState(120, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
@@ -99,9 +99,11 @@ public class Autonomous {
 		WTF.add(new DriveState(27, false, 0.55, LeftEncoder, RightEncoder, EntDrive));
 		WTF.add(new MantisArmState(true));
 		WTF.add(new WiggleState(EntDrive, false));
+		WTF.add(new DriveState(4, true, 0.55, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new MantisArmState(false));
 		WTF.add(new IdleState(EntDrive));
 		
-		WTF2.add(new DriveState(16.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		WTF2.add(new DriveState(18.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
 		WTF2.add(new MantisArmState(true));
 		//WTF2.add(new WiggleState(EntDrive, false));
 		//WTF.add(new DriveState(120, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
@@ -126,10 +128,11 @@ public class Autonomous {
 		//WTF.add(new DriveState(34, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
 		//WTF.add(new DriveState(34, false, 0.35, LeftEncoder, RightEncoder, EntDrive));
 		WTF2.add(new DriveState(52, false, 0.75, LeftEncoder, RightEncoder, EntDrive));
-		WTF2.add(new DriveState(36, false, 0.75, LeftEncoder, RightEncoder, EntDrive));
-		WTF2.add(new DriveState(14, false, 0.75, LeftEncoder, RightEncoder, EntDrive));
+		WTF2.add(new DriveState(16, false, 0.75, LeftEncoder, RightEncoder, EntDrive));
 		WTF2.add(new MantisArmState(true));
 		WTF2.add(new WiggleState(EntDrive, false));
+		WTF2.add(new DriveState(4, true, 0.55, LeftEncoder, RightEncoder, EntDrive));
+		WTF2.add(new MantisArmState(false));
 		WTF2.add(new IdleState(EntDrive));
 		
 		WTF3.add(new DriveState(9.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
@@ -144,10 +147,10 @@ public class Autonomous {
 		
 		
 		//Create a queue of commands to grab the container, and push the tote into the auto zone
-		BothGrabQueue.add(new RotationState(20, true, .3, false, LeftEncoder, RightEncoder, EntDrive));
+		BothGrabQueue.add(new RotationState(20, true, .5, false, LeftEncoder, RightEncoder, EntDrive));
 		BothGrabQueue.add(new LiftState(range, lift, .40));
-		BothGrabQueue.add(new RotationState(80, true, .4, false, LeftEncoder, RightEncoder, EntDrive));
-		BothGrabQueue.add(new DriveState (160, true, 0.4, LeftEncoder, RightEncoder, EntDrive));
+		BothGrabQueue.add(new RotationState(80, true, .6, false, LeftEncoder, RightEncoder, EntDrive));
+		BothGrabQueue.add(new DriveState (160, true, 0.3, LeftEncoder, RightEncoder, EntDrive));
 		BothGrabQueue.add(new IdleState(EntDrive));
 		
 		//Create a queue of commands for grabbing the container and driving into the auto zone
@@ -157,11 +160,11 @@ public class Autonomous {
 		ContainerGrabQueue.add(new IdleState(EntDrive));
 		
 		//Create a queue for of commands for grabbing the two containers on the step
-		MantisArmQueue.add(new DriveState(9.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		MantisArmQueue.add(new DriveState(15.5, false, 0.75, LeftEncoder, RightEncoder, EntDrive));
 		MantisArmQueue.add(new MantisArmState(true));
 		MantisArmQueue.add(new WiggleState(EntDrive, false));
-		MantisArmQueue.add(new DriveState(60, true, 0.55, LeftEncoder, RightEncoder, EntDrive));
-		MantisArmQueue.add(new DriveState(60, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
+		MantisArmQueue.add(new DriveState(60, true, 0.75, LeftEncoder, RightEncoder, EntDrive));
+		MantisArmQueue.add(new DriveState(60, true, 0.75, LeftEncoder, RightEncoder, EntDrive));
 		MantisArmQueue.add(new MantisArmState(false));
 		MantisArmQueue.add(new WiggleState(EntDrive, true));
 		MantisArmQueue.add(new DriveState(15, false, 0.6, LeftEncoder, RightEncoder, EntDrive));

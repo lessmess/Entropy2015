@@ -12,7 +12,7 @@ public class MantisArmState extends AutonomousState {
 	private boolean targetArmState;
 	
 	private int delayCounter;
-	private static final int delayLimit = 50;
+	private static final int delayLimit = 75;
 	private static final int delayLimit2 = 0;
 	
 	private Solenoid leftMantisArmSolenoid = RobotMap.leftMantis;
