@@ -31,13 +31,16 @@ public class DriveState extends AutonomousState {
 	private double leftSpeed;
 	private double rightSpeed;
 
+	private double counter;
+	private boolean stopcounter;
+	
 	// 0.05 is a good scale factor for 16.5 inches
 	private static final double scaleFactor = 0.9;
 	private static final double Dead_Zone = 0.5;
 	
 	// targetPosition is in inches
 	//For direction: input true for forwards, input false for backwards
-	public DriveState(double targetPosition, boolean direction, double speed, Encoder leftEncoder, Encoder rightEncoder, EntropyDrive entDrive)
+	public DriveState(double targetPosition, boolean direction, double speed, boolean stopcounter, Encoder leftEncoder, Encoder rightEncoder, EntropyDrive entDrive)
 	{
 		this.entropyDrive = entDrive;		
 		this.targetPosition = targetPosition;		
@@ -56,6 +59,8 @@ public class DriveState extends AutonomousState {
 		this.rightEncoderDistance = 0.0;
 		this.rightSpeed = forwardSpeed;
 		this.leftSpeed = forwardSpeed;
+		this.counter = 0;
+		this.stopcounter = stopcounter;
 	}
 	
 	public void Init()
@@ -65,6 +70,11 @@ public class DriveState extends AutonomousState {
 	
 	public boolean Update()
 	{
+		counter++;
+		if(counter > 60 && stopcounter)
+		{
+			return true;
+		}
 		// Retrieve the latest distance measurements from the encoders
 		leftEncoderDistance = leftEncoder.getDistance();
 		rightEncoderDistance = rightEncoder.getDistance();

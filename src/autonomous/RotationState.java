@@ -13,7 +13,7 @@ public class RotationState extends AutonomousState{
 	Encoder leftEncoder;
 	Encoder rightEncoder;
 	
-	static final double wheelBase = 24;
+	static final double wheelBase = 23;
 	private static final double scaleFactor = 0.05;	
 	
 	//Number of degrees of rotation required before completion of this state (used in conjunction with targetPosition)
@@ -55,7 +55,7 @@ public class RotationState extends AutonomousState{
 
 	public boolean Update()
 	{
-		if(counter < 40 && !wiggle)
+		if(counter < 5 && !wiggle)
 		{
 			counter++;
 			return false;

@@ -36,9 +36,12 @@ public class Autonomous {
 	Queue<AutonomousState> IdleQueue = new LinkedList<AutonomousState>();
 	Queue<AutonomousState> WTF = new LinkedList<AutonomousState>();
 	Queue<AutonomousState> WTF2 = new LinkedList<AutonomousState>();
+	Queue<AutonomousState> WTFMantisFirst = new LinkedList<AutonomousState>();
+	Queue<AutonomousState> WTF2MantisFirst = new LinkedList<AutonomousState>();
 	Queue<AutonomousState> WTF3 = new LinkedList<AutonomousState>();
 	Queue<AutonomousState> heh = new LinkedList<AutonomousState>();
 	private AnalogInput range;
+	public double voltage;
 	private String mode;
 	
 	public Autonomous(EntropyDrive entDrive, ArmExtension arm, Claw autoClaw, Wrist autoWrist, Lift lift, AnalogInput RangeFinder)
@@ -71,14 +74,14 @@ public class Autonomous {
 		 */
 		
 		
-		WTF.add(new DriveState(15.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new MantisArmState(true));
+		WTF.add(new DriveState(20.5, false, 0.5, true, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new MantisArmState(true, false));
 		WTF.add(new WiggleState(EntDrive, false));
 		//WTF.add(new DriveState(120, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new DriveState(71, true, 0.8, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new DriveState(29, true, 0.55, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(71, true, 0.8, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(29, true, 0.55, false, LeftEncoder, RightEncoder, EntDrive));
 		//WTF.add(new DriveState(12, true, 0.45, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new MantisArmState(false));
+		WTF.add(new MantisArmState(false, false));
 		WTF.add(new RotationState(15, false, .7, true, LeftEncoder, RightEncoder, EntDrive));
 		WTF.add(new RotationState(30, true, .7, true, LeftEncoder, RightEncoder, EntDrive));
 		WTF.add(new RotationState(30, false, .7, true, LeftEncoder, RightEncoder, EntDrive));
@@ -86,31 +89,31 @@ public class Autonomous {
 		WTF.add(new RotationState(30, false, .7, true, LeftEncoder, RightEncoder, EntDrive));
 		WTF.add(new RotationState(15, true, .7, true, LeftEncoder, RightEncoder, EntDrive));
 		
-		WTF.add(new RotationState(99, true, .4, false, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new DriveState(183, true, 0.895, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new RotationState(95, true, .4, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(183, true, 0.895, false, LeftEncoder, RightEncoder, EntDrive));
 		//WTF.add(new DriveState(29, true, 0.5, LeftEncoder, RightEncoder, EntDrive));
 		//WTF.add(new DriveState(10, true, 0.45, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new RotationState(140, false, .4, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new RotationState(168, false, .4, false, LeftEncoder, RightEncoder, EntDrive));
 		/*WTF.add(new DriveState(34, false, 0.7, LeftEncoder, RightEncoder, EntDrive));
 		WTF.add(new DriveState(34, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
 		WTF.add(new DriveState(34, false, 0.35, LeftEncoder, RightEncoder, EntDrive));*/
-		WTF.add(new DriveState(37, false, 0.55, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new DriveState(36, false, 0.55, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new DriveState(27, false, 0.55, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new MantisArmState(true));
-		WTF.add(new WiggleState(EntDrive, false));
-		WTF.add(new DriveState(4, true, 0.55, LeftEncoder, RightEncoder, EntDrive));
-		WTF.add(new MantisArmState(false));
+		WTF.add(new DriveState(37, false, 0.55, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(36, false, 0.55, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(27, false, 0.55, false, LeftEncoder, RightEncoder, EntDrive));
+		//WTF.add(new MantisArmState(true, false));
+		//WTF.add(new WiggleState(EntDrive, false));
+		//WTF.add(new DriveState(4, true, 0.55, LeftEncoder, RightEncoder, EntDrive));
+		//WTF.add(new MantisArmState(false, false));
 		WTF.add(new IdleState(EntDrive));
 		
-		WTF2.add(new DriveState(18.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
-		WTF2.add(new MantisArmState(true));
-		//WTF2.add(new WiggleState(EntDrive, false));
+		WTF2.add(new DriveState(20.5, false, 0.5, true, LeftEncoder, RightEncoder, EntDrive));
+		WTF2.add(new MantisArmState(true, false));
+		WTF2.add(new WiggleState(EntDrive, false));
 		//WTF.add(new DriveState(120, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
-		WTF2.add(new DriveState(80, true, 0.8, LeftEncoder, RightEncoder, EntDrive));
-		WTF2.add(new DriveState(21, true, 0.55, LeftEncoder, RightEncoder, EntDrive));
+		WTF2.add(new DriveState(80, true, 0.8, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF2.add(new DriveState(21, true, 0.55, false, LeftEncoder, RightEncoder, EntDrive));
 		//WTF.add(new DriveState(12, true, 0.45, LeftEncoder, RightEncoder, EntDrive));
-		WTF2.add(new MantisArmState(false));
+		WTF2.add(new MantisArmState(false, false));
 		//WTF2.add(new WiggleState(EntDrive, true));
 		WTF2.add(new RotationState(15, false, .5, true, LeftEncoder, RightEncoder, EntDrive));
 		WTF2.add(new RotationState(30, true, .5, true, LeftEncoder, RightEncoder, EntDrive));
@@ -119,30 +122,32 @@ public class Autonomous {
 		WTF2.add(new RotationState(30, false, .5, true, LeftEncoder, RightEncoder, EntDrive));
 		WTF2.add(new RotationState(15, true, .5, true, LeftEncoder, RightEncoder, EntDrive));
 		
-		WTF2.add(new RotationState(105, false, .4, false, LeftEncoder, RightEncoder, EntDrive));
-		WTF2.add(new DriveState(187.5, true, 0.85, LeftEncoder, RightEncoder, EntDrive));
+		WTF2.add(new RotationState(95, false, .4, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF2.add(new DriveState(187.5, true, 0.85, false, LeftEncoder, RightEncoder, EntDrive));
 		//WTF2.add(new DriveState(29, true, 0.6, LeftEncoder, RightEncoder, EntDrive));
 		//WTF2.add(new DriveState(9.5, true, 0.45, LeftEncoder, RightEncoder, EntDrive));
-		WTF2.add(new RotationState(145, true, .4, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF2.add(new RotationState(168, true, .4, false, LeftEncoder, RightEncoder, EntDrive));
 		//WTF.add(new DriveState(34, false, 0.7, LeftEncoder, RightEncoder, EntDrive));
 		//WTF.add(new DriveState(34, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
 		//WTF.add(new DriveState(34, false, 0.35, LeftEncoder, RightEncoder, EntDrive));
-		WTF2.add(new DriveState(52, false, 0.75, LeftEncoder, RightEncoder, EntDrive));
-		WTF2.add(new DriveState(16, false, 0.75, LeftEncoder, RightEncoder, EntDrive));
-		WTF2.add(new MantisArmState(true));
-		WTF2.add(new WiggleState(EntDrive, false));
-		WTF2.add(new DriveState(4, true, 0.55, LeftEncoder, RightEncoder, EntDrive));
-		WTF2.add(new MantisArmState(false));
+		WTF2.add(new DriveState(61, false, 0.75, false, LeftEncoder, RightEncoder, EntDrive));
+		//WTF2.add(new DriveState(16, false, 0.75, LeftEncoder, RightEncoder, EntDrive));
+		//WTF2.add(new MantisArmState(true, false));
+		//WTF2.add(new WiggleState(EntDrive, false));
+		//WTF2.add(new DriveState(4, true, 0.55, LeftEncoder, RightEncoder, EntDrive));
+		//WTF2.add(new MantisArmState(false, false));
 		WTF2.add(new IdleState(EntDrive));
 		
-		WTF3.add(new DriveState(9.5, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
-		WTF3.add(new MantisArmState(true));
+		WTF3.add(new DriveState(20.5, false, 0.5, true, LeftEncoder, RightEncoder, EntDrive));
+		WTF3.add(new MantisArmState(true, false));
 		WTF3.add(new WiggleState(EntDrive, false));
-		WTF3.add(new DriveState(71, true, 0.8, LeftEncoder, RightEncoder, EntDrive));
-		WTF3.add(new DriveState(29, true, 0.55, LeftEncoder, RightEncoder, EntDrive));
-		WTF3.add(new MantisArmState(false));
-		WTF3.add(new WiggleState(EntDrive, true));
-		WTF3.add(new DriveState(120, true, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		WTF3.add(new DriveState(71, true, 0.8, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF3.add(new DriveState(29, true, 0.55, false, LeftEncoder, RightEncoder, EntDrive));
+		//WTF3.add(new MantisArmState(false, false));
+		//WTF3.add(new WiggleState(EntDrive, true));
+		//WTF3.add(new DriveState(120, true, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		//WTF3.add(new MantisArmState(false, false));
+		//WTF3.add(new WiggleState(EntDrive, true));
 		WTF3.add(new IdleState(EntDrive));
 		
 		
@@ -150,27 +155,99 @@ public class Autonomous {
 		BothGrabQueue.add(new RotationState(20, true, .5, false, LeftEncoder, RightEncoder, EntDrive));
 		BothGrabQueue.add(new LiftState(range, lift, .40));
 		BothGrabQueue.add(new RotationState(80, true, .6, false, LeftEncoder, RightEncoder, EntDrive));
-		BothGrabQueue.add(new DriveState (160, true, 0.3, LeftEncoder, RightEncoder, EntDrive));
+		BothGrabQueue.add(new DriveState (160, true, 0.3, false, LeftEncoder, RightEncoder, EntDrive));
 		BothGrabQueue.add(new IdleState(EntDrive));
 		
 		//Create a queue of commands for grabbing the container and driving into the auto zone
 		//ContainerGrabQueue.add(new DriveState(160, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
 		ContainerGrabQueue.add(new LiftState(range, lift, .3));
-		ContainerGrabQueue.add(new DriveState (108, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		ContainerGrabQueue.add(new DriveState (108, false, 0.5, false, LeftEncoder, RightEncoder, EntDrive));
 		ContainerGrabQueue.add(new IdleState(EntDrive));
 		
 		//Create a queue for of commands for grabbing the two containers on the step
-		MantisArmQueue.add(new DriveState(15.5, false, 0.75, LeftEncoder, RightEncoder, EntDrive));
-		MantisArmQueue.add(new MantisArmState(true));
+		MantisArmQueue.add(new DriveState(15.5, false, 0.75, true, LeftEncoder, RightEncoder, EntDrive));
+		MantisArmQueue.add(new MantisArmState(true, false));
 		MantisArmQueue.add(new WiggleState(EntDrive, false));
-		MantisArmQueue.add(new DriveState(60, true, 0.75, LeftEncoder, RightEncoder, EntDrive));
-		MantisArmQueue.add(new DriveState(60, true, 0.75, LeftEncoder, RightEncoder, EntDrive));
-		MantisArmQueue.add(new MantisArmState(false));
+		MantisArmQueue.add(new DriveState(60, true, 0.75, false, LeftEncoder, RightEncoder, EntDrive));
+		MantisArmQueue.add(new DriveState(60, true, 0.75, false, LeftEncoder, RightEncoder, EntDrive));
+		MantisArmQueue.add(new MantisArmState(false, false));
 		MantisArmQueue.add(new WiggleState(EntDrive, true));
-		MantisArmQueue.add(new DriveState(15, false, 0.6, LeftEncoder, RightEncoder, EntDrive));
+		MantisArmQueue.add(new DriveState(15, false, 0.6, false, LeftEncoder, RightEncoder, EntDrive));
 		MantisArmQueue.add(new IdleState(EntDrive));
 		
-		heh.add(new RotationState(6000, true, .4, false, LeftEncoder, RightEncoder, EntDrive));
+		
+		WTFMantisFirst.add(new MantisArmState(true, true));
+		WTFMantisFirst.add(new DriveState(15.5, false, 0.5, false, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new WiggleState(EntDrive, false));
+		//WTF.add(new DriveState(120, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new DriveState(71, true, 0.8, false, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new DriveState(29, true, 0.55, false, LeftEncoder, RightEncoder, EntDrive));
+		//WTF.add(new DriveState(12, true, 0.45, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new MantisArmState(false, false));
+		WTFMantisFirst.add(new RotationState(15, false, .7, true, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new RotationState(30, true, .7, true, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new RotationState(30, false, .7, true, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new RotationState(30, true, .7, true, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new RotationState(30, false, .7, true, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new RotationState(15, true, .7, true, LeftEncoder, RightEncoder, EntDrive));
+		
+		WTFMantisFirst.add(new RotationState(95, true, .4, false, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new DriveState(183, true, 0.895, false, LeftEncoder, RightEncoder, EntDrive));
+		//WTF.add(new DriveState(29, true, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		//WTF.add(new DriveState(10, true, 0.45, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new RotationState(140, false, .4, false, LeftEncoder, RightEncoder, EntDrive));
+		/*WTF.add(new DriveState(34, false, 0.7, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(34, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		WTF.add(new DriveState(34, false, 0.35, LeftEncoder, RightEncoder, EntDrive));*/
+		WTFMantisFirst.add(new DriveState(37, false, 0.55, false, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new DriveState(36, false, 0.55, false, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new DriveState(27, false, 0.55, false, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new MantisArmState(true, false));
+		WTFMantisFirst.add(new WiggleState(EntDrive, false));
+		WTFMantisFirst.add(new DriveState(4, true, 0.55, false, LeftEncoder, RightEncoder, EntDrive));
+		WTFMantisFirst.add(new MantisArmState(false, false));
+		WTFMantisFirst.add(new IdleState(EntDrive));
+		
+		WTF2MantisFirst.add(new MantisArmState(true, true));
+		WTF2MantisFirst.add(new DriveState(18.5, false, 0.5, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new WiggleState(EntDrive, false));
+		//WTF.add(new DriveState(120, true, 0.70, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new DriveState(80, true, 0.8, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new DriveState(21, true, 0.55, false, LeftEncoder, RightEncoder, EntDrive));
+		//WTF.add(new DriveState(12, true, 0.45, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new MantisArmState(false, false));
+		//WTF2.add(new WiggleState(EntDrive, true));
+		WTF2MantisFirst.add(new RotationState(15, false, .5, true, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new RotationState(30, true, .5, true, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new RotationState(30, false, .5, true, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new RotationState(30, true, .5, true, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new RotationState(30, false, .5, true, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new RotationState(15, true, .5, true, LeftEncoder, RightEncoder, EntDrive));
+		
+		WTF2MantisFirst.add(new RotationState(95, false, .4, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new DriveState(187.5, true, 0.85, false, LeftEncoder, RightEncoder, EntDrive));
+		//WTF2.add(new DriveState(29, true, 0.6, LeftEncoder, RightEncoder, EntDrive));
+		//WTF2.add(new DriveState(9.5, true, 0.45, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new RotationState(90, true, .4, false, LeftEncoder, RightEncoder, EntDrive));
+		//WTF.add(new DriveState(34, false, 0.7, LeftEncoder, RightEncoder, EntDrive));
+		//WTF.add(new DriveState(34, false, 0.5, LeftEncoder, RightEncoder, EntDrive));
+		//WTF.add(new DriveState(34, false, 0.35, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new DriveState(57, false, 0.75, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new DriveState(16, false, 0.75, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new MantisArmState(true, false));
+		WTF2MantisFirst.add(new WiggleState(EntDrive, false));
+		WTF2MantisFirst.add(new DriveState(4, true, 0.55, false, LeftEncoder, RightEncoder, EntDrive));
+		WTF2MantisFirst.add(new MantisArmState(false, false));
+		WTF2MantisFirst.add(new IdleState(EntDrive));
+		
+		
+		
+		
+		
+		
+		
+		heh.add(new RotationState(90, true, .4, false, LeftEncoder, RightEncoder, EntDrive));
+		heh.add(new IdleState(EntDrive));
 		
 		
 		//Create a queue (of one) to not do anything
@@ -193,80 +270,45 @@ public class Autonomous {
 		5: 1.588
 		 */
 		
-		mode = SmartDashboard.getString("Auto");
-		SmartDashboard.putString("mode", mode);
+		voltage = SelectorSwitch.getVoltage();
+		SmartDashboard.putNumber("Voltage", voltage);
 		//Select the autonomous queue to run based on the selector switch
-		if (mode.equals("1"))
+		if (voltage >= 0 && voltage < .3)
 	    { 
-			SmartDashboard.putString("test", "one");
+			SmartDashboard.putString("mode", "4CSP");
 			// Standard autonomous procedure selected
-			if (ContainerGrabQueue.peek().Update())
+			if (WTF2.peek().Update())
 	    	{
-				ContainerGrabQueue.remove();
-			} 
-	     }
-	    else if (mode.equals("2"))
-	    { 
-	    	SmartDashboard.putString("test", "two");
-	    	//Container Grab & tote push autonomous procedure selected
-	    	if (BothGrabQueue.peek().Update())
-			{
-				BothGrabQueue.remove();
-			} 
-	    }
-	    else if (mode.equals("3"))
-	    { 
-	    	SmartDashboard.putString("test", "three");
-	    	// Container Grab autonomous procedure selected
-	    	if (MantisArmQueue.peek().Update())
-			{
-				MantisArmQueue.remove();
-			} 
-	    }
-	    else if (mode.equals("4"))
-	    { 
-	    	SmartDashboard.putString("test", "four");
-	    	// Container Grab autonomous procedure selected
-	    	if (WTF.peek().Update())
-			{
-				WTF.remove();
-			} 
-	    }
-	    else if (mode.equals("5"))
-	    { 
-	    	SmartDashboard.putString("test", "five");
-	    	// Container Grab autonomous procedure selected
-	    	if (WTF2.peek().Update())
-			{
 				WTF2.remove();
 			} 
-	    }
-	    else if (mode.equals("6"))
+	     }
+		else if (voltage > .5 && voltage < 1.1)
 	    { 
-	    	SmartDashboard.putString("test", "six");
-	    	// Container Grab autonomous procedure selected
-	    	if (WTF3.peek().Update())
-			{
+			SmartDashboard.putString("mode", "4CNSP");
+			// Standard autonomous procedure selected
+			if (WTF.peek().Update())
+	    	{
+				WTF.remove();
+			} 
+	     }
+		else if (voltage > 1.3 && voltage < 1.8)
+	    { 
+			SmartDashboard.putString("mode", "2CSA");
+			// Standard autonomous procedure selected
+			if (WTF3.peek().Update())
+	    	{
 				WTF3.remove();
 			} 
-	    }
-	    else if (mode.equals("1337"))
-	    { 
-	    	SmartDashboard.putString("test", "heh");
-	    	// Container Grab autonomous procedure selected
-	    	if (heh.peek().Update())
-			{
-				heh.remove();
-			} 
-	    }
-	    else
-	    {
-	    	SmartDashboard.putString("test", "sad");
-	    	if (IdleQueue.peek().Update())
-			{
+	     }
+		else
+		{
+			SmartDashboard.putString("mode", "Idle");
+			// Standard autonomous procedure selected
+			if (IdleQueue.peek().Update())
+	    	{
 				IdleQueue.remove();
-			}
-	    }
+			} 
+		}
 		return false;
 	
 	}

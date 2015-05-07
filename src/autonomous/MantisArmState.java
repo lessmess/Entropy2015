@@ -10,17 +10,20 @@ public class MantisArmState extends AutonomousState {
 	// If targetArmState is set to true, the mantis arms will extend
 	// If set to false, the mantis arms will retract
 	private boolean targetArmState;
+	private boolean first;
 	
 	private int delayCounter;
 	private static final int delayLimit = 75;
+	private static final int delayLimitFirst = 0;
 	private static final int delayLimit2 = 0;
 	
 	private Solenoid leftMantisArmSolenoid = RobotMap.leftMantis;
 	private Solenoid rightMantisArmSolenoid = RobotMap.rightMantis;
 	
-	public MantisArmState(boolean Extended)
+	public MantisArmState(boolean Extended, boolean first)
 	{
 		this.targetArmState = Extended;
+		this.first = first;
 		this.delayCounter = 0;
 	}
 
@@ -58,13 +61,28 @@ public class MantisArmState extends AutonomousState {
 		}
 		else
 		{
-			if (delayCounter >= delayLimit)
+			if(!first)
 			{
-				return true;
+				if (delayCounter >= delayLimit)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
+			
 			else
 			{
-				return false;
+				if (delayCounter >= delayLimitFirst)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
 		}
 		
