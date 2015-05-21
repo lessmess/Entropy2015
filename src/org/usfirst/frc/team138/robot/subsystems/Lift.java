@@ -48,7 +48,7 @@ public class Lift extends Subsystem {
     
     public void down()
     {	
-    	liftJaguar.set(.90);
+    	liftJaguar.set(.65);
     }
     
     public void stop()

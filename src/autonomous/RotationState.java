@@ -13,7 +13,7 @@ public class RotationState extends AutonomousState{
 	Encoder leftEncoder;
 	Encoder rightEncoder;
 	
-	static final double wheelBase = 23;
+	static final double wheelBase = 22.5;
 	private static final double scaleFactor = 0.05;	
 	
 	//Number of degrees of rotation required before completion of this state (used in conjunction with targetPosition)
